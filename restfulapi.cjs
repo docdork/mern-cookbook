@@ -7,11 +7,26 @@ let data = [
   { id: uuid(), name: "Alice" },
 ];
 
-const usr ={
-    create(name) {
-        const user = {id: uuid(), name}
-        data.push(user)
-        return user
-    },
-    
-}
+const usr = {
+  create(name) {
+    const user = { id: uuid(), name };
+    data.push(user);
+    return user;
+  },
+  read(id) {
+    if (id === "all") return data;
+    return data.find((user) => user.id === id);
+  },
+  update(id, name) {
+    const user = data.find((usr) => usr.id === id);
+    if (!user) return { status: "User not found" };
+    user.name = name;
+    return user;
+  },
+  delete(id) {
+    data = data.filter((user) => user.id !== id);
+    return { status: "deleted", id };
+  },
+};
+
+
